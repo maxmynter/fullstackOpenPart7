@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useField } from "../hooks";
 
 const CreateNew = (props) => {
-  const content = useField("content");
-  const author = useField("author");
-  const info = useField("info");
+  const { reset: resetContent, ...content } = useField("content");
+  const { reset: resetAuthor, ...author } = useField("author");
+  const { reset: resetInfo, ...info } = useField("info");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -19,9 +19,9 @@ const CreateNew = (props) => {
     props.displayMessageUponCreation(`Created anecdote ${content.value}`);
   };
   const handleReset = () => {
-    content.reset();
-    author.reset();
-    info.reset();
+    resetContent();
+    resetAuthor();
+    resetInfo();
   };
 
   return (
