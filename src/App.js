@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import AnecdoteList from "./components/AnecdoteList";
 import About from "./components/About";
 import CreateNew from "./components/CreateNew";
 import Menu from "./components/Menu";
+import SingleAnecdote from "./components/SingleAnecdote";
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -51,6 +52,10 @@ const App = () => {
         <Menu />
       </div>
       <Routes>
+        <Route
+          path="/anecdotes/:id"
+          element={<SingleAnecdote anecdotes={anecdotes} />}
+        />
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
         <Route path="/create" element={<CreateNew addNew={addNew} />} />
         <Route path="/about" element={<About />} />
