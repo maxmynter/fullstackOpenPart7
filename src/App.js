@@ -6,6 +6,7 @@ import About from "./components/About";
 import CreateNew from "./components/CreateNew";
 import Menu from "./components/Menu";
 import SingleAnecdote from "./components/SingleAnecdote";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -25,7 +26,12 @@ const App = () => {
     },
   ]);
 
-  const [notification, setNotification] = useState("");
+  const [notification, setNotification] = useState(null);
+
+  const notify = async (message) => {
+    setNotification(message);
+    setTimeout(() => setNotification(null), 5000);
+  };
 
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000);
@@ -50,6 +56,7 @@ const App = () => {
       <div>
         <h1>Software anecdotes</h1>
         <Menu />
+        <Notification message={notification} />
       </div>
       <Routes>
         <Route
@@ -57,7 +64,12 @@ const App = () => {
           element={<SingleAnecdote anecdotes={anecdotes} />}
         />
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
-        <Route path="/create" element={<CreateNew addNew={addNew} />} />
+        <Route
+          path="/create"
+          element={
+            <CreateNew addNew={addNew} displayMessageUponCreation={notify} />
+          }
+        />
         <Route path="/about" element={<About />} />
       </Routes>
       <div>
