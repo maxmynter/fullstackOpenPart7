@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useField } from "../hooks";
+import { useDispatch } from "react-redux";
+import { setNotification } from "../reducers/notificationReducer";
 
 const CreateNew = (props) => {
+  const dispatch = useDispatch();
+
   const { reset: resetContent, ...content } = useField("content");
   const { reset: resetAuthor, ...author } = useField("author");
   const { reset: resetInfo, ...info } = useField("info");
@@ -16,7 +20,8 @@ const CreateNew = (props) => {
       votes: 0,
     });
     navigate("/");
-    props.displayMessageUponCreation(`Created anecdote ${content.value}`);
+
+    dispatch(setNotification(`Created anecdote ${content.value}`));
   };
   const handleReset = () => {
     resetContent();
