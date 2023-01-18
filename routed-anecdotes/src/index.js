@@ -4,9 +4,13 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import App from "./App";
 import notificationReducer from "./reducers/notificationReducer";
+import anecdoteEntryReducer from "./reducers/blogEntryReducer";
 
 const store = configureStore({
-  reducer: { notifications: notificationReducer },
+  reducer: {
+    notifications: notificationReducer,
+    anecdotes: anecdoteEntryReducer,
+  },
 });
 
 export default store;
