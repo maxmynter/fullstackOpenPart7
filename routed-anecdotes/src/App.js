@@ -8,7 +8,7 @@ import CreateNew from "./components/CreateNew";
 import Menu from "./components/Menu";
 import SingleAnecdote from "./components/SingleAnecdote";
 import Notification from "./components/Notification";
-import { addAnecdote, voteAnecdote } from "./reducers/blogEntryReducer";
+import { addAnecdote } from "./reducers/blogEntryReducer";
 
 const App = () => {
   const anecdotes = useSelector((state) => state.anecdotes);
@@ -46,22 +46,10 @@ const App = () => {
       <Routes>
         <Route
           path="/anecdotes/:id"
-          element={
-            <SingleAnecdote
-              vote={(id) => dispatch(voteAnecdote(id))}
-              anecdotes={anecdotes}
-            />
-          }
+          element={<SingleAnecdote anecdotes={anecdotes} />}
         />
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
-        <Route
-          path="/create"
-          element={
-            <CreateNew
-              addNew={(newAnecdote) => dispatch(addAnecdote(newAnecdote))}
-            />
-          }
-        />
+        <Route path="/create" element={<CreateNew />} />
         <Route path="/about" element={<About />} />
       </Routes>
       <div>

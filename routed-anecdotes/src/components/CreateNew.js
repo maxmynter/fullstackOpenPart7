@@ -2,8 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useField } from "../hooks";
 import { useDispatch } from "react-redux";
 import { setNotification } from "../reducers/notificationReducer";
+import { addAnecdote } from "../reducers/blogEntryReducer";
 
-const CreateNew = (props) => {
+const CreateNew = () => {
   const dispatch = useDispatch();
 
   const { reset: resetContent, ...content } = useField("content");
@@ -13,12 +14,14 @@ const CreateNew = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.addNew({
-      content: content.value,
-      author: author.value,
-      info: info.value,
-      votes: 0,
-    });
+    dispatch(
+      addAnecdote({
+        content: content.value,
+        author: author.value,
+        info: info.value,
+        votes: 0,
+      })
+    );
     navigate("/");
 
     dispatch(setNotification(`Created anecdote ${content.value}`));

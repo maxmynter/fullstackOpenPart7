@@ -8,6 +8,8 @@ const anecdoteEntryReducer = (state = [], action) => {
           ? { ...anecdote, votes: anecdote.votes + 1 }
           : anecdote
       );
+    case "DELETE":
+      return state.filter((anecdote) => anecdote.id !== action.id);
     default:
       return state;
   }
@@ -22,9 +24,15 @@ export const addAnecdote = (anecdote) => {
 };
 
 export const voteAnecdote = (anecdoteID) => {
-  console.log("Voting", anecdoteID);
   return {
     type: "VOTE",
+    id: anecdoteID,
+  };
+};
+
+export const deleteAnecdote = (anecdoteID) => {
+  return {
+    type: "DELETE",
     id: anecdoteID,
   };
 };
