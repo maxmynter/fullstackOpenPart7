@@ -1,6 +1,7 @@
 const blogsRouter = require("express").Router();
 const jwt = require("jsonwebtoken");
 const Blog = require("../models/blogs");
+const User = require("../models/users");
 const middleware = require("../utils/middleware");
 
 blogsRouter.get("/", async (request, response) => {
@@ -14,6 +15,21 @@ blogsRouter.post("/", middleware.userExtractor, async (request, response) => {
     if (loggedInUser) {
       const blog = new Blog({ ...request.body, creator: loggedInUser });
       const result = await blog.save();
+
+      await User.findByIdAndUpdate(
+        loggedInUser.id,
+        {
+          $push: { blogs: blog },
+        },
+        {
+          safe: true,
+          upsert: true,
+          new: true,
+        },
+        function (err, model) {
+          console.log(err);
+        }
+      );
       return response.status(201).json(result);
     } else {
       return response.status(401).json({ error: "Authentication Error" });
