@@ -1,7 +1,10 @@
-const Logout = ({ user, setUser }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../reducer/loginReducer";
+const Logout = () => {
+  const dispatch = useDispatch();
+  const user = JSON.parse(useSelector((state) => state.user));
   const handleLogout = () => {
-    window.localStorage.removeItem("loggedBlogAppUser");
-    setUser(null);
+    dispatch(setUser(null));
   };
   return (
     <div>

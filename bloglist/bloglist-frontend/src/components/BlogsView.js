@@ -11,7 +11,8 @@ const LikeButton = ({ onClickHandler }) => (
 );
 
 const Blog = ({ blog, canDelete }) => {
-  const [likes, setLikes] = useState(blog.likes);
+  const dispatch = useDispatch();
+  const [displayLikes, setDisplayLikes] = useState(blog.likes);
   const [deleted, setDeleted] = useState(false);
 
   const blogStyle = {
@@ -23,8 +24,9 @@ const Blog = ({ blog, canDelete }) => {
   };
 
   const updateLikesinBackend = () => {
-    blog.likes++;
-    blogService.updateBlog(blog);
+    blogService
+      .updateBlog({ ...blog, likes: blog.likes + 1 })
+      .then(dispatch(getBlogs()));
   };
 
   const onClickDelete = (blog) => {
@@ -33,6 +35,7 @@ const Blog = ({ blog, canDelete }) => {
     ) {
       blogService.deleteBlog(blog.id);
       setDeleted(true);
+      dispatch(getBlogs());
     }
   };
 
@@ -44,11 +47,11 @@ const Blog = ({ blog, canDelete }) => {
           <Togglable buttonLabel="View Details" hideLabel="Hide">
             <div>URL: {blog.url}</div>
             <div>
-              Likes: {likes}{" "}
+              Likes: {displayLikes}{" "}
               <LikeButton
                 onClickHandler={() => {
+                  setDisplayLikes(displayLikes + 1);
                   updateLikesinBackend();
-                  setLikes(likes + 1);
                 }}
               />
             </div>
@@ -65,9 +68,10 @@ const Blog = ({ blog, canDelete }) => {
   );
 };
 
-const BlogsView = ({ user }) => {
+const BlogsView = () => {
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.blogs);
+  const user = JSON.parse(useSelector((state) => state.user));
   useEffect(() => {
     dispatch(getBlogs());
   }, []);

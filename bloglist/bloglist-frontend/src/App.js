@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { BlogsView } from "./components/BlogsView";
 import blogService from "./services/blogs";
 import LoginForm from "./components/LoginForm";
@@ -6,20 +6,10 @@ import DisplayMessage from "./components/MessageDisplay";
 import CreateNewBlog from "./components/CreateNewBlog";
 import Togglable from "./components/Toggleable";
 import Logout from "./components/Logout";
+import { useSelector } from "react-redux";
 
 const App = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedBlogAppUser");
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setUser(user);
-      blogService.setToken(user.token);
-    }
-  }, []);
+  const user = JSON.parse(useSelector((state) => state.user));
 
   const addBlogRef = useRef();
   const toggleTogglable = () => {
@@ -31,25 +21,17 @@ const App = () => {
       <DisplayMessage />
       {user !== null && (
         <>
-          <BlogsView user={user} />
+          <BlogsView />
           <Togglable buttonLabel="Create Entry" ref={addBlogRef}>
             <CreateNewBlog
               toggleParentVisibility={toggleTogglable}
               createNewBlogEntry={blogService.addBlog}
             />
           </Togglable>
+          <Logout />
         </>
       )}
-      {user === null && (
-        <LoginForm
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-          setUser={setUser}
-        />
-      )}
-      {user && <Logout user={user} setUser={setUser} />}
+      {user === null && <LoginForm />}
     </div>
   );
 };
