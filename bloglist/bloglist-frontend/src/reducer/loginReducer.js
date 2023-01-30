@@ -1,4 +1,4 @@
-import blogService from "../services/blogs";
+import setTokens from "../utils/setToken";
 const loginReducer = (state = null, action) => {
   switch (action.type) {
     case "SET":
@@ -10,7 +10,7 @@ const loginReducer = (state = null, action) => {
 
 export const setUser = (user) => {
   if (user) {
-    blogService.setToken(JSON.parse(user).token);
+    setTokens(JSON.parse(user).token);
   }
   return { type: "SET", user };
 };

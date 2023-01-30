@@ -6,12 +6,14 @@ import App from "./App";
 import notificationReducer from "./reducer/notificationReducer";
 import blogPostReducer from "./reducer/blogPostReducer";
 import loginReducer from "./reducer/loginReducer";
+import userReducer from "./reducer/userReducer";
 
 const store = configureStore({
   reducer: {
     notification: notificationReducer,
     blogs: blogPostReducer,
     user: loginReducer,
+    allUsers: userReducer,
   },
 });
 

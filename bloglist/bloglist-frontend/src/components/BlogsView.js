@@ -78,7 +78,7 @@ const BlogsView = () => {
   return (
     <>
       <h2>Blogs</h2>
-      {blogs
+      {[...blogs]
         .sort((a, b) => b.likes - a.likes)
         .map((blog) => (
           <Blog

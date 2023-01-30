@@ -7,6 +7,7 @@ import CreateNewBlog from "./components/CreateNewBlog";
 import Togglable from "./components/Toggleable";
 import Logout from "./components/Logout";
 import { useSelector } from "react-redux";
+import UserView from "./components/usersInfo";
 
 const App = () => {
   const user = JSON.parse(useSelector((state) => state.user));
@@ -28,6 +29,7 @@ const App = () => {
               createNewBlogEntry={blogService.addBlog}
             />
           </Togglable>
+          <UserView />
           <Logout />
         </>
       )}

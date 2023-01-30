@@ -1,7 +1,7 @@
 import blogService from "../services/blogs";
 const blogPostReducer = (state = [], action) => {
   switch (action.type) {
-    case "GET":
+    case "GET_BLOGS":
       return action.blogs;
     default:
       return state;
@@ -11,7 +11,7 @@ const blogPostReducer = (state = [], action) => {
 export const getBlogs = () => {
   return async (dispatch) => {
     const blogs = await blogService.getAll();
-    dispatch({ type: "GET", blogs });
+    dispatch({ type: "GET_BLOGS", blogs });
   };
 };
 

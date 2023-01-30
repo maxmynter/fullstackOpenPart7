@@ -17,7 +17,15 @@ const LoginForm = () => {
 
     try {
       const user = await loginService.login({ username, password });
-      dispatch(setUser(JSON.stringify(user)));
+      dispatch(
+        setUser(
+          JSON.stringify({
+            name: user.name,
+            token: user.token,
+            username: user.username,
+          })
+        )
+      );
       setUsername("");
       setPassword("");
     } catch (exception) {

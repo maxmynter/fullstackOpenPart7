@@ -5,6 +5,7 @@ import {
   clearNotification,
 } from "../reducer/notificationReducer";
 import { getBlogs } from "../reducer/blogPostReducer";
+import { getUsersInfo } from "../reducer/userReducer";
 
 const CreateNewBlog = ({ toggleParentVisibility, createNewBlogEntry }) => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const CreateNewBlog = ({ toggleParentVisibility, createNewBlogEntry }) => {
     event.preventDefault();
     const response = await createNewBlogEntry({ title, author, url });
     dispatch(getBlogs());
+    dispatch(getUsersInfo());
     dispatch(setNofification(`${response.statusText}`));
     toggleParentVisibility();
     setTimeout(() => {
