@@ -1,14 +1,10 @@
+import { Link } from "react-router-dom";
 import Togglable from "./Toggleable";
 import blogService from "../services/blogs";
+import LikeButton from "../utils/likeButton";
 import { getBlogs } from "../reducer/blogPostReducer";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-const LikeButton = ({ onClickHandler }) => (
-  <button id="likeButton" onClick={onClickHandler}>
-    Like
-  </button>
-);
 
 const Blog = ({ blog, canDelete }) => {
   const dispatch = useDispatch();
@@ -43,7 +39,9 @@ const Blog = ({ blog, canDelete }) => {
     <>
       {!deleted && (
         <div className="blog" style={blogStyle}>
-          {blog.title} {blog.author}
+          <Link to={`/blogs/${blog.id}`}>
+            {blog.title} {blog.author}
+          </Link>
           <Togglable buttonLabel="View Details" hideLabel="Hide">
             <div>URL: {blog.url}</div>
             <div>
