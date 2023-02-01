@@ -5,16 +5,21 @@ import BlogsDetailView from "./components/BlogsDetailView";
 import LoginForm from "./components/LoginForm";
 import DisplayMessage from "./components/MessageDisplay";
 import Logout from "./components/Logout";
+import UserView from "./components/UserView";
+import UserDetailView from "./components/UserDetailView";
 
 const LoggedInView = () => {
   return (
     <>
       <div>
         <Link to="/">Home</Link>
+        <Link to="/users">Users</Link>
       </div>
       <Routes>
         <Route path="/" element={<LandingView />} />
         <Route path="/blogs/:id" element={<BlogsDetailView />} />
+        <Route path="/users" element={<UserView />} />
+        <Route path="/users/:id" element={<UserDetailView />} />
       </Routes>
       <Logout />
     </>
