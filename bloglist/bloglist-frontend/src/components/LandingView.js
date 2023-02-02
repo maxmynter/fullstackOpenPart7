@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { BlogsView } from "./BlogsView";
-import blogService from "../services/blogs";
 import CreateNewBlog from "./CreateNewBlog";
 import Togglable from "./Toggleable";
 import UserView from "./UserView";
@@ -18,10 +17,7 @@ const LandingView = () => {
         <>
           <BlogsView />
           <Togglable buttonLabel="Create Entry" ref={addBlogRef}>
-            <CreateNewBlog
-              toggleParentVisibility={toggleTogglable}
-              createNewBlogEntrys={blogService.addBlog}
-            />
+            <CreateNewBlog toggleParentVisibility={toggleTogglable} />
           </Togglable>
           <UserView />
         </>

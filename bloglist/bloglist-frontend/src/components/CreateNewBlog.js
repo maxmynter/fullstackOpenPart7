@@ -6,8 +6,9 @@ import {
 } from "../reducer/notificationReducer";
 import { getBlogs } from "../reducer/blogPostReducer";
 import { getUsersInfo } from "../reducer/userReducer";
+import blogService from "../services/blogs";
 
-const CreateNewBlog = ({ toggleParentVisibility, createNewBlogEntry }) => {
+const CreateNewBlog = ({ toggleParentVisibility }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -15,7 +16,7 @@ const CreateNewBlog = ({ toggleParentVisibility, createNewBlogEntry }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await createNewBlogEntry({ title, author, url });
+    const response = await blogService.addBlog({ title, author, url });
     dispatch(getBlogs());
     dispatch(getUsersInfo());
     dispatch(setNofification(`${response.statusText}`));

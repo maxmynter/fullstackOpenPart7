@@ -14,7 +14,7 @@ const getAll = () => {
 
 const addBlog = async (newEntry) => {
   const config = { headers: { Authorization: token } };
-  const request = await axios.post(baseUrl, newEntry, config);
+  const request = await axios.post(baseUrl + "/add", newEntry, config);
   return request;
 };
 
@@ -29,4 +29,16 @@ const deleteBlog = async (id) => {
   return request;
 };
 
-export default { setToken, getAll, addBlog, updateBlog, deleteBlog };
+const commentBlog = async (id, comment) => {
+  const request = await axios.post(baseUrl + `/${id}/comments`, { comment });
+  return request;
+};
+
+export default {
+  setToken,
+  getAll,
+  addBlog,
+  updateBlog,
+  deleteBlog,
+  commentBlog,
+};

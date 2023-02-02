@@ -5,6 +5,48 @@ import { getBlogs } from "../reducer/blogPostReducer";
 import blogService from "../services/blogs";
 import { LikeButton } from "./BlogsView";
 
+const CommentsView = ({ comments }) => {
+  const match = useMatch("/blogs/:id");
+  const [allComments, setAllComments] = useState(comments ? comments : []);
+  const [newComment, setNewComment] = useState("");
+
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
+    console.log(newComment);
+    blogService.commentBlog(match.params.id, newComment);
+    setAllComments(comments.concat(newComment));
+    setNewComment("");
+  };
+  return (
+    <>
+      {allComments.length > 0 ? (
+        <ul>
+          {allComments.map((comment, index) => (
+            <li key={comment + `_${index}`}>{comment}</li>
+          ))}
+        </ul>
+      ) : (
+        <>
+          <span>No comments yet</span>
+          <br />
+          <br />
+        </>
+      )}
+      <form onSubmit={handleCommentSubmit}>
+        Add Commment:
+        <input
+          id="newCommentInput"
+          type="text"
+          value={newComment}
+          name="newComment"
+          onChange={({ target }) => setNewComment(target.value)}
+        ></input>
+        <button id="addCommentButton">Comment</button>
+      </form>
+    </>
+  );
+};
+
 const BlogsDetailView = () => {
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.blogs);
@@ -31,6 +73,8 @@ const BlogsDetailView = () => {
           }}
         />
         <div>URL: {blog.url}</div>
+        <h2>Comments</h2>
+        <CommentsView comments={blog.comments} />
       </div>
     );
   } else {
