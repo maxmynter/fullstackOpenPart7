@@ -23,6 +23,7 @@ const LoginForm = () => {
             name: user.name,
             token: user.token,
             username: user.username,
+            id: user.id,
           })
         )
       );

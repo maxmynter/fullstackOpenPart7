@@ -9,11 +9,15 @@ import UserView from "./components/UserView";
 import UserDetailView from "./components/UserDetailView";
 
 const LoggedInView = () => {
+  const style = {
+    backgroundColor: "grey",
+    color: "white",
+  };
   return (
     <>
-      <div>
-        <Link to="/">Home</Link>
-        <Link to="/users">Users</Link>
+      <div style={style}>
+        <Link to="/">Home</Link> <Link to="/users">Users</Link>
+        <Logout />
       </div>
       <Routes>
         <Route path="/" element={<LandingView />} />
@@ -21,7 +25,6 @@ const LoggedInView = () => {
         <Route path="/users" element={<UserView />} />
         <Route path="/users/:id" element={<UserDetailView />} />
       </Routes>
-      <Logout />
     </>
   );
 };
