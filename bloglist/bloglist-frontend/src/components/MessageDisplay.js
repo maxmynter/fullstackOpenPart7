@@ -1,4 +1,3 @@
-import "../index.css";
 import { useSelector } from "react-redux";
 
 const DisplayMessage = () => {

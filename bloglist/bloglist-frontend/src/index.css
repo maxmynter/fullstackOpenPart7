@@ -1,3 +1,26 @@
+body {
+  background-color: grey;
+}
+
+.login-container {
+  margin-top: 50px;
+  padding: 15px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  border-radius: 30px;
+  background-color: blueviolet;
+  width: 300px;
+}
+
+.login-container button,
+.login-container input {
+  margin: 5px;
+  width: 100%;
+}
+
 .message {
   color: rgb(255, 0, 0);
 }
